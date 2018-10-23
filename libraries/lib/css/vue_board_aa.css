@@ -1,3 +1,9 @@
+#write{
+  margin:20px;
+}
+#input_form{
+  display: none;
+}
 #title {
   width: 420px;
 }
@@ -9,7 +15,36 @@
   width: 600px;
   margin : 10px 0px 0px 0px;
 }
+#passwd,#passconf{
+  width: 260px;
+}
+#submit{
+  position: absolute;
+  right:65px;
+}
+#lists{
+  margin:20px;
+}
+#pagination{
+  display: flex;
+  justify-content: center;
+}
+
 .card {
   margin : 10px;
   max-width: 43rem;
+}
+.table{
+  width: 1300px;
+}
+[v-cloak] {
+  display: none;
+}
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

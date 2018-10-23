@@ -6,19 +6,36 @@ class Vue_board extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    //캐쉬 삭제를 위한 추가항목
-    $this-> output-> set_header('Last-Modified:'.gmdate("D, d M Y H:i:s").'GMT');('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-    $this-> output-> set_header('Pragma: no-cache');
-    $this-> output-> set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");//
+    $this->load->helper(array('url','date'));
+    $this->load->model('vue_board_model');
+    $this->load->library('form_validation');
   }
 
   function index() {
-    $data= $this-> vue_board_model-> gets();
-    $this-> load-> model('vue_board_model');
-    $this-> load-> view('vue_board_aa',array('data'=> $data));
+    $listCount = $this->vue_board_model->lists()['listCount'];
+    $this->load->view('vue_board_aa',array('listCount'=>$listCount));
+  }
+  function index_data() {
+    $result = $this-> vue_board_model->lists()['lists'];
+    $this->output->set_content_type('application/json')->set_output(json_encode($result));
   }
   function get() {
 
   }
 
+  function add() {
+    $this->form_validation->set_rules('title', '제목', 'required');
+    $this->form_validation->set_rules('creator', '작성자', 'required');
+    $this->form_validation->set_rules('contents', '내용', 'required');
+    $this->form_validation->set_rules('passwd', '비밀번호', 'required|exact_length[4]');
+    $this->form_validation->set_rules('passconf', '비밀번호확인', 'required|alpha_numeric|matches[passwd]');
+
+    if ($this->form_validation->run()==FALSE) {
+      $this->output->set_content_type('application/json')->set_output(json_encode('fail'));
+    }
+    else {
+      $this->vue_board_model->add($this->input->post('title'),$this->input->post('creator'),$this->input->post('contents'),$this->input->post('passwd'));
+      $this->output->set_content_type('application/json')->set_output(json_encode('success'));
+    }
+  }
 }
