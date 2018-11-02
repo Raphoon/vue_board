@@ -1,16 +1,3 @@
-// document.querySelector(".number_input").addEventListener("keypress", function (evt) {
-//     if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
-//     {
-//         evt.preventDefault();
-//     }
-// });
-
-$(document).ready(function() {
-  $("#write").click(function() {
-    $("#input_form").toggle(500)
-  })
-})
-
 var input = new Vue({
   el: '#input_form',
   data:{
@@ -84,5 +71,34 @@ var lists = new Vue({
   },
   mounted: function() {
     input.getlist()
-  }
+  },
+  methods: {
+    pageView(data) {
+      event.preventDefault()
+      $("#lists").toggle(800)
+      view.getData(data)
+    }
+  },
+})
+
+var view = new Vue({
+  el: '#view',
+  data:{
+    view: {
+      board_id: '',
+      contents: '',
+      created_time: '',
+      creator: '',
+      passwd: '',
+      title: '',
+    },
+  },
+  mounted: function() {
+  },
+  methods: {
+    getData(data) {
+      console.log(data)
+      this.view = data
+    }
+  },
 })

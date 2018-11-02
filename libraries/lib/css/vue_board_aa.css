@@ -1,3 +1,9 @@
+h1{
+  margin-left:20px;
+}
+#logo{
+  margin:10px 0px 5px 20px;
+}
 #write{
   margin:20px;
 }
@@ -35,7 +41,7 @@
   max-width: 43rem;
 }
 .table{
-  width: 1300px;
+  width: 80%;
 }
 [v-cloak] {
   display: none;
